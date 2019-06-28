@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('admin')->group(function () {
+	Route::get('authors/data', 'AuthorController@data')->name('authors.data');
+	Route::resource('/authors', 'AuthorController');
+});
