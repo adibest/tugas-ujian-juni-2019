@@ -10,31 +10,31 @@
 
 	<script src="{{asset('adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 	<script src="{{asset('adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
-	<script src="{{asset('adminlte/dist/js/custom.js')}}"></script>
+	{{-- <script src="{{asset('adminlte/dist/js/custom.js')}}"></script> --}}
 	<script type="text/javascript">
 		var table;
 		$(function() {
-		    table = $('#authors').DataTable({
+		   	var table = $('#authors').DataTable({
 		        processing: true,
 		        serverSide: true,
 		        ajax: '{{$ajax}}',
-        		order: [[3,'desc']],
+        		// order: [[3,'desc']],
 		        columns: [
 		            { data: 'id', searchable: false, orderable: false},
 		            { data: 'name', searchable: false, orderable: false},
 		            { data: 'created_at', searchable: false, orderable: true},
 		            { data: 'action', searchable: false, orderable: false}
 		        ],
-		        columnDefs: [{
-		          "targets": 0,
-		          "searchable": false,
-		          "orderable": false,
-		          "data": null,
-		          // "title": 'No.',
-		          "render": function (data, type, full, meta) {
-		              return meta.settings._iDisplayStart + meta.row + 1; 
-		          }
-		        }],
+		        // columnDefs: [{
+		        //   "targets": 0,
+		        //   "searchable": false,
+		        //   "orderable": false,
+		        //   "data": null,
+		        //   // "title": 'No.',
+		        //   "render": function (data, type, full, meta) {
+		        //       return meta.settings._iDisplayStart + meta.row + 1; 
+		        //   }
+		        // }],
 		    });
 		});
 	</script>

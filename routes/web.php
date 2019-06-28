@@ -16,6 +16,10 @@ Route::get('/', function () {
 });
 
 Route::prefix('admin')->group(function () {
+	Route::get('/dashboard', function () {
+	    return view('dashboard.index');
+	});
+	
 	Route::get('authors/data', 'AuthorController@data')->name('authors.data');
 	Route::resource('/authors', 'AuthorController');
 });

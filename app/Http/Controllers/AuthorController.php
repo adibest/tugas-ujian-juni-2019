@@ -11,8 +11,9 @@ use Form;
 class AuthorController extends Controller
 {
     private $folder = 'admin.authors';
-    private $uri = 'admin.authors';
+    private $uri = 'authors';
     private $title = 'Authors';
+    private $desc = 'Description';
 
     public function __construct(Author $table)
     {
@@ -35,8 +36,21 @@ class AuthorController extends Controller
 
     public function data(Request $request)
     {
-        if ($request->ajax()) {
-            $data = $this->table->select(['id', 'name', 'created_at']);
+        // if ($request->ajax()) {
+        //     $data = $this->table->select(['id', 'name', 'created_at']);
+        //     return DataTables::of($data)
+        //         ->addColumn('action', function ($index) {
+        //             $tag = Form::open(array("url" => route($this->uri.'.destroy',$index->id), "method" => "DELETE"));
+        //             $tag .= "<a href=".route($this->uri.'.edit',$index->id)." class='btn btn-primary btn-xs'><i class='fa fa-pencil'></i> Edit</a>";
+        //             $tag .= " <button type='submit' class='delete btn btn-danger btn-xs'><i class='fa fa-trash'></i> Delete</button>";
+        //             $tag .= Form::close();
+        //             return $tag;
+        //         })
+        //         ->rawColumns(['id', 'action'])
+        //         ->make(true);
+        // }
+
+        $data = $this->table->select(['id', 'name', 'created_at']);
             return DataTables::of($data)
                 ->addColumn('action', function ($index) {
                     $tag = Form::open(array("url" => route($this->uri.'.destroy',$index->id), "method" => "DELETE"));
@@ -45,9 +59,7 @@ class AuthorController extends Controller
                     $tag .= Form::close();
                     return $tag;
                 })
-                ->rawColumns(['id', 'action'])
                 ->make(true);
-        }
     }
 
 
@@ -56,9 +68,16 @@ class AuthorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(FormBuilder $formBuilder)
     {
-        return view('admin.authors.create');
+        $data['title'] = $this->title;
+        $data['form'] = $formBuilder->create('App\Forms\AuthorForm', [
+            'method' => 'POST',
+            'url' => route($this->uri.'.store')
+        ]);
+        $data['url'] = route($this->uri.'.index');
+
+        return view($this->folder.'.create', $data);
     }
 
     /**
@@ -69,8 +88,9 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        Author::create($request->all());
-        return redirect('admin/authors');
+        $this->table->create($request->all());
+        return redirect(route($this->uri.'.index'));
+
     }
 
     /**
