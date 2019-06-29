@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Member extends Model
 {
-    protected $fillable = ['type_member_id','name','amount_book_rent','amount_date_rent',];
+    protected $fillable = ['type_member_id','name','address','phone',];
+
+    public function type_member()
+    {
+    	return $this->belongsTo(TypeMember::class, 'type_member_id');
+    }
 }

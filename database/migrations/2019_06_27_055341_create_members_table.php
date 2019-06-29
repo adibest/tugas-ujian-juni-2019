@@ -17,8 +17,8 @@ class CreateMembersTable extends Migration
             $table->Increments('id');
             $table->unsignedInteger('type_member_id');
             $table->string('name');
-            $table->integer('amount_book_rent');
-            $table->date('amount_date_rent');
+            $table->string('address');
+            $table->string('phone');
             $table->timestamps();
 
             $table->foreign('type_member_id')->references('id')->on('type_members')->onDelete('cascade');
