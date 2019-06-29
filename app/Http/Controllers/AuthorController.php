@@ -50,7 +50,7 @@ class AuthorController extends Controller
         //         ->make(true);
         // }
 
-        $data = $this->table->select(['id', 'name', 'created_at']);
+        $data = Author::select(['id', 'name', 'created_at']);
             return DataTables::of($data)
                 ->addColumn('action', function ($index) {
                     $tag = Form::open(array("url" => route($this->uri.'.destroy',$index->id), "method" => "DELETE"));
@@ -59,6 +59,7 @@ class AuthorController extends Controller
                     $tag .= Form::close();
                     return $tag;
                 })
+                ->rawColumns(['id','name','action'])
                 ->make(true);
     }
 
@@ -112,8 +113,17 @@ class AuthorController extends Controller
      */
     public function edit($id)
     {
-        $authors = Author::find($id);
-        return view('admin.authors.edit', compact('authors'));
+        $data['title'] = $this->title;
+        $tbl = $this->table->find($id);
+        $data['form'] = $formBuilder->create('App\Forms\AuthorForm', [
+            'method' => 'PUT',
+            'model' => $tbl,
+            'url' => route($this->uri.'.update', $id)
+        ]);
+
+        $data['url'] = route($this->uri.'.index');
+        return view($this->folder.'.create', $data);
+
     }
 
     /**
@@ -125,8 +135,8 @@ class AuthorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Author::find($id)->update($request->all());
-        return redirect('admin/authors');
+        $this->table->findOrFail($id)->update($request->all());
+        return redirect(route($this->uri.'.index'));
     }
 
     /**

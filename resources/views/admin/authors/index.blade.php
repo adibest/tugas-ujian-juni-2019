@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
+@section('title', $title)
+
 @section('head-script')
 	
 	<link rel="stylesheet" href="{{asset('adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 
 @endsection
 
-@section('script')
+@section('end-script')
 
 	<script src="{{asset('adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 	<script src="{{asset('adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
@@ -14,7 +16,7 @@
 	<script type="text/javascript">
 		var table;
 		$(function() {
-		   	var table = $('#authors').DataTable({
+		    table = $('#authors').DataTable({
 		        processing: true,
 		        serverSide: true,
 		        ajax: '{{$ajax}}',
@@ -25,16 +27,16 @@
 		            { data: 'created_at', searchable: false, orderable: true},
 		            { data: 'action', searchable: false, orderable: false}
 		        ],
-		        // columnDefs: [{
-		        //   "targets": 0,
-		        //   "searchable": false,
-		        //   "orderable": false,
-		        //   "data": null,
-		        //   // "title": 'No.',
-		        //   "render": function (data, type, full, meta) {
-		        //       return meta.settings._iDisplayStart + meta.row + 1; 
-		        //   }
-		        // }],
+		        columnDefs: [{
+		          "targets": 0,
+		          "searchable": false,
+		          "orderable": false,
+		          "data": null,
+		          // "title": 'No.',
+		          "render": function (data, type, full, meta) {
+		              return meta.settings._iDisplayStart + meta.row + 1; 
+		          }
+		        }],
 		    });
 		});
 	</script>
