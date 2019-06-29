@@ -49,7 +49,7 @@ class MemberController extends Controller
                     $tag .= Form::close();
                     return $tag;
                 })
-                ->rawColumns(['id','name','action'])
+                ->rawColumns(['id','action'])
                 ->make(true);
     }
 
