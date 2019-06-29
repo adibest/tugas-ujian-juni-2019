@@ -1,24 +1,26 @@
 @extends('layouts.app')
 
+@section('title', $title)
+
 @section('head-script')
 	
 	<link rel="stylesheet" href="{{asset('adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 
 @endsection
 
-@section('script')
+@section('end-script')
 
 	<script src="{{asset('adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 	<script src="{{asset('adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
-	<script src="{{asset('adminlte/dist/js/custom.js')}}"></script>
+	{{-- <script src="{{asset('adminlte/dist/js/custom.js')}}"></script> --}}
 	<script type="text/javascript">
 		var table;
 		$(function() {
-		    table = $('#categories').DataTable({
+		    table = $('#type_books').DataTable({
 		        processing: true,
 		        serverSide: true,
 		        ajax: '{{$ajax}}',
-        		order: [[3,'desc']],
+        		// order: [[3,'desc']],
 		        columns: [
 		            { data: 'id', searchable: false, orderable: false},
 		            { data: 'name', searchable: false, orderable: false},
@@ -44,13 +46,20 @@
 
 @section('content')
 
+	@if ($message = Session::get('success'))
+      <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button> 
+          <strong>{{ $message }}</strong>
+      </div>
+	@endif
+
 	<div class="box">
 		<div class="box-header with-border">
 		  	{{-- <h3 class="box-title">Title</h3> --}}
 		     <a href="{{$create}}" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Create</a>
 		</div>
 		<div class="box-body">
-		  	<table id="categories" class="table table-bordered table-hover">
+		  	<table id="type_books" class="table table-bordered table-hover">
 	            <thead>
 		            <tr>
 		              	<th>#</th>

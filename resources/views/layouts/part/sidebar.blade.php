@@ -57,19 +57,31 @@
        </li>
 
        <li class="{{ Request::is('admin/authors') || Request::is('admin/authors/*') ? 'active' : '' }}">
-         <a href="{{ route('authors.index') }}"><i class="fa fa-shopping-cart"></i> <span>Author</span></a>
+         <a href="{{ route('authors.index') }}"><i class="fa fa-pencil-square-o"></i> <span>Authors</span></a>
        </li>
 
-       <li class="{{ Request::is('admin/return') || Request::is('admin/return/*') ? 'active' : '' }}">
-         <a href=""><i class="fa fa-undo"></i> <span>Returns</span></a>
+       <li class="{{ Request::is('admin/books') || Request::is('admin/books/*') ? 'active' : '' }}">
+         <a href="{{ route('books.index') }}"><i class="fa fa-book"></i> <span>Books</span></a>
        </li>
 
-       <li class="{{ Request::is('admin/payments') || Request::is('admin/payments/*') ? 'active' : '' }}">
-         <a href=""><i class="fa fa-cc-visa"></i> <span>Payments</span></a>
+       <li class="{{ Request::is('admin/members') || Request::is('admin/members/*') ? 'active' : '' }}">
+         <a href="{{ route('members.index') }}"><i class="fa fa-users"></i> <span>Members</span></a>
        </li>
 
-       <li class="{{ Request::is('admin/user') || Request::is('admin/user/*') ? 'active' : '' }}">
-         <a href=""><i class="fa fa-users"></i> <span>Users</span></a>
+       <li class="{{ Request::is('admin/publishers') || Request::is('admin/publishers/*') ? 'active' : '' }}">
+         <a href="{{ route('publishers.index') }}"><i class="fa fa-print"></i> <span>Publishers</span></a>
+       </li>
+
+       <li class="{{ Request::is('admin/rents') || Request::is('admin/rents/*') ? 'active' : '' }}">
+         <a href="{{ route('rents.index') }}"><i class="fa fa-exchange"></i> <span>Rents</span></a>
+       </li>
+
+       <li class="{{ Request::is('admin/type_books') || Request::is('admin/type_books/*') ? 'active' : '' }}">
+         <a href="{{ route('type_books.index') }}"><i class="fa fa-tags"></i> <span>Books Type</span></a>
+       </li>
+
+       <li class="{{ Request::is('admin/type_members') || Request::is('admin/type_members/*') ? 'active' : '' }}">
+         <a href="{{ route('type_members.index') }}"><i class="fa fa-user-plus"></i> <span>Members Type</span></a>
        </li>
 
      </ul>
