@@ -90,7 +90,7 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         $this->table->create($request->all());
-        return redirect(route($this->uri.'.index'));
+        return redirect(route($this->uri.'.index'))->with('success', 'Data berhasil diinput');
 
     }
 
@@ -111,7 +111,7 @@ class AuthorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FormBuilder $formBuilder, $id)
     {
         $data['title'] = $this->title;
         $tbl = $this->table->find($id);
@@ -136,7 +136,7 @@ class AuthorController extends Controller
     public function update(Request $request, $id)
     {
         $this->table->findOrFail($id)->update($request->all());
-        return redirect(route($this->uri.'.index'));
+        return redirect(route($this->uri.'.index'))->with('success', 'Data berhasil diedit');
     }
 
     /**
@@ -147,7 +147,9 @@ class AuthorController extends Controller
      */
     public function destroy($id)
     {
-        Author::find($id)->delete();
-        return redirect('admin/authors');
+        $tb = $this->table->findOrFail($id);
+        $tb->delete();
+        return redirect(route($this->uri.'.index'))->with('success', 'Data berhasil dihapus');
+        // return response()->json(['msg' => true,'success' => trans('message.delete')]);
     }
 }
