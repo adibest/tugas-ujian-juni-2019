@@ -12,4 +12,9 @@ class Member extends Model
     {
     	return $this->belongsTo(TypeMember::class, 'type_member_id');
     }
+
+    public function rent()
+    {
+    	return $this->hasMany(Rent::class);
+    }
 }
